@@ -6,6 +6,7 @@ import android.animation.AnimatorSet;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -78,6 +79,12 @@ public class MainActivity extends Activity {
 				b.setText("CANCEL");
 			}
 		});
+		colorAnim.addUpdateListener(new AnimatorUpdateListener() {
+			@Override
+			public void onAnimationUpdate(ValueAnimator animation) {
+				// TODO Auto-generated method stub
+			}
+		});
 	}
 	
 	public void buttonMethod2(View button){
@@ -130,6 +137,13 @@ public class MainActivity extends Activity {
 		animSet.play(scaleAnimY).after(scaleAnimX);
 		animSet.start();
 
+	}
+	
+	public void buttonMethod3(View button){
+		// ObjectAnimatorによるスケールアニメーション
+		ObjectAnimator scaleAnimX = ObjectAnimator.ofFloat(button, "scaleX", 1f, 0f, 1f);
+		scaleAnimX.setDuration(500);
+		scaleAnimX.start();
 	}
 
 	@Override
