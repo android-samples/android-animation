@@ -34,7 +34,18 @@ public class MainActivity extends Activity {
 		alphaAnim.setDuration(3000);
 		alphaAnim.start();
 
-		
+		// ObjectAnimatorによるスケールアニメーション
+		ObjectAnimator scaleAnimX = ObjectAnimator.ofFloat(button, "scaleX", 1f, 0f);
+		scaleAnimX.setDuration(3000);
+		scaleAnimX.start();
+		ObjectAnimator scaleAnimY = ObjectAnimator.ofFloat(button, "scaleY", 1f, 0f);
+		scaleAnimY.setDuration(3000);
+		scaleAnimY.start();
+		/* これはダメっぽい
+		ObjectAnimator scaleAnim = ObjectAnimator.ofFloat(button, "scale", 1f, 0f);
+		scaleAnim.setDuration(3000);
+		scaleAnim.start();
+		*/
 	}
 
 	@Override
