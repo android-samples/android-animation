@@ -31,17 +31,53 @@ public class MainActivity extends Activity {
 		colorAnim.start();
 		
 		// ObjectAnimatorによるアルファアニメーション
-		ObjectAnimator alphaAnim = ObjectAnimator.ofFloat(button, "alpha", 1f, 0f);
+		ObjectAnimator alphaAnim = ObjectAnimator.ofFloat(button, "alpha", 1f, 0.5f);
 		alphaAnim.setDuration(3000);
+		alphaAnim.setRepeatCount(ValueAnimator.INFINITE);
+		alphaAnim.setRepeatMode(ValueAnimator.REVERSE);
 		alphaAnim.start();
 
 		// ObjectAnimatorによるスケールアニメーション
-		ObjectAnimator scaleAnimX = ObjectAnimator.ofFloat(button, "scaleX", 1f, 0f);
+		ObjectAnimator scaleAnimX = ObjectAnimator.ofFloat(button, "scaleX", 1f, 0.5f);
 		scaleAnimX.setDuration(3000);
+		scaleAnimX.setRepeatCount(ValueAnimator.INFINITE);
+		scaleAnimX.setRepeatMode(ValueAnimator.REVERSE);
 		scaleAnimX.start();
-		ObjectAnimator scaleAnimY = ObjectAnimator.ofFloat(button, "scaleY", 1f, 0f);
+		ObjectAnimator scaleAnimY = ObjectAnimator.ofFloat(button, "scaleY", 1f, 0.5f);
 		scaleAnimY.setDuration(3000);
+		scaleAnimY.setRepeatCount(ValueAnimator.INFINITE);
+		scaleAnimY.setRepeatMode(ValueAnimator.REVERSE);
 		scaleAnimY.start();
+		
+		// イベント
+		final Button b = (Button)button;
+		colorAnim.addListener(new AnimatorListener() {
+			@Override
+			public void onAnimationStart(Animator animation) {
+				b.setText("START");
+			}
+			
+			@Override
+			public void onAnimationRepeat(Animator animation) {
+				Integer i = (Integer)b.getTag();
+				if(i == null){
+					i = Integer.valueOf(0);
+				}
+				b.setText("REPEAT " + i);
+				i++;
+				b.setTag(i);
+			}
+			
+			@Override
+			public void onAnimationEnd(Animator animation) {
+				b.setText("END");
+			}
+			
+			@Override
+			public void onAnimationCancel(Animator animation) {
+				b.setText("CANCEL");
+			}
+		});
 	}
 	
 	public void buttonMethod2(View button){
