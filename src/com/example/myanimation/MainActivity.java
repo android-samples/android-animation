@@ -1,5 +1,7 @@
 package com.example.myanimation;
 
+import android.animation.Animator;
+import android.animation.Animator.AnimatorListener;
 import android.animation.AnimatorSet;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
@@ -9,6 +11,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 public class MainActivity extends Activity {
 	// 色定数 (ApiDemosより)
@@ -60,12 +63,37 @@ public class MainActivity extends Activity {
 		ObjectAnimator alphaAnim = ObjectAnimator.ofFloat(button, "alpha", 1f, 0f);
 		alphaAnim.setDuration(1500);
 
+		// イベント
+		final Button b = (Button)button;
+		scaleAnimX.addListener(new AnimatorListener() {
+			@Override
+			public void onAnimationStart(Animator animation) {
+				b.setText("START");
+			}
+			
+			@Override
+			public void onAnimationRepeat(Animator animation) {
+				b.setText("REPEAT");
+			}
+			
+			@Override
+			public void onAnimationEnd(Animator animation) {
+				b.setText("END");
+			}
+			
+			@Override
+			public void onAnimationCancel(Animator animation) {
+				b.setText("CANCEL");
+			}
+		});
+		
 		// 順次実行
 		AnimatorSet animSet = new AnimatorSet();
 		animSet.play(alphaAnim).after(scaleAnimX);
 		animSet.play(scaleAnimX);
 		animSet.play(scaleAnimY).after(scaleAnimX);
 		animSet.start();
+
 	}
 
 	@Override
