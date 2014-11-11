@@ -1,5 +1,7 @@
 package com.example.myanimation;
 
+import android.R.integer;
+import android.animation.AnimatorSet;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
@@ -8,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
 
 public class MainActivity extends Activity {
 	// 色定数 (ApiDemosより)
@@ -18,12 +21,20 @@ public class MainActivity extends Activity {
 
     // ボタン押下時
 	public void buttonMethod(View button){
-		ValueAnimator colorAnim = ObjectAnimator.ofInt(button, "backgroundColor", RED, BLUE);
-		colorAnim.setDuration(1000);
+		// ObjectAnimatorによる色アニメーション
+		ObjectAnimator colorAnim = ObjectAnimator.ofInt(button, "backgroundColor", RED, BLUE);
+		colorAnim.setDuration(3000);
 		colorAnim.setEvaluator(new ArgbEvaluator());
 		colorAnim.setRepeatCount(ValueAnimator.INFINITE);
 		colorAnim.setRepeatMode(ValueAnimator.REVERSE);
 		colorAnim.start();
+		
+		// ObjectAnimatorによるアルファアニメーション
+		ObjectAnimator alphaAnim = ObjectAnimator.ofFloat(button, "alpha", 1f, 0f);
+		alphaAnim.setDuration(3000);
+		alphaAnim.start();
+
+		
 	}
 
 	@Override
