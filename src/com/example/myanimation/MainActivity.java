@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 
 public class MainActivity extends Activity {
@@ -144,6 +145,20 @@ public class MainActivity extends Activity {
 		ObjectAnimator scaleAnimX = ObjectAnimator.ofFloat(button, "scaleX", 1f, 0f, 1f);
 		scaleAnimX.setDuration(500);
 		scaleAnimX.start();
+	}
+
+	public void buttonMethod4(View button){
+		// ObjectAnimatorによるスケールアニメーション
+		ObjectAnimator scaleAnimX = ObjectAnimator.ofFloat(button, "rotationX", 0f, 360f);
+		scaleAnimX.setDuration(1000);
+		scaleAnimX.setInterpolator(new LinearInterpolator());
+		scaleAnimX.setRepeatCount(10);
+		scaleAnimX.start();
+
+		ObjectAnimator scaleAnimY = ObjectAnimator.ofFloat(button, "rotationY", 0f, 360f);
+		scaleAnimY.setDuration(10000);
+		scaleAnimY.setInterpolator(new LinearInterpolator());
+		scaleAnimY.start();
 	}
 
 	@Override
