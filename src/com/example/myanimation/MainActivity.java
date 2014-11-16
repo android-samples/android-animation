@@ -1,9 +1,11 @@
 package com.example.myanimation;
 
+import android.R.integer;
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.AnimatorSet;
 import android.animation.ArgbEvaluator;
+import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
@@ -14,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 public class MainActivity extends Activity {
 	// 色定数 (ApiDemosより)
@@ -160,11 +163,41 @@ public class MainActivity extends Activity {
 		scaleAnimY.setInterpolator(new LinearInterpolator());
 		scaleAnimY.start();
 	}
+	
+	LinearLayout mContainer;
+	int mCount = 0;
+	public void buttonMethod5(View button){
+        Button newButton = new Button(this);
+        newButton.setText(String.valueOf(mCount++));
+        newButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            	mContainer.removeView(v);
+            }
+        });
+        mContainer.addView(newButton, Math.min(1, mContainer.getChildCount()));
+	}
 
+	
+	LayoutTransition mTransition;
+	ObjectAnimator mAppearingAnim;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		// Container
+		mContainer = (LinearLayout)findViewById(R.id.LinearLayout1);
+		
+		// LayoutTransition生成・設定
+		mTransition = new LayoutTransition();
+		mContainer.setLayoutTransition(mTransition);
+		
+		// LayoutTransition設定
+		//mAppearingAnim = new ObjectAnimator();
+		//mAppearingAnim.ofFloat(values);
+		//mTransition.setAnimator(LayoutTransition.APPEARING, mAppearingAnim);
+		
 	}
 
 	@Override
